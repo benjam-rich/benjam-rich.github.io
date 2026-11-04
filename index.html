@@ -14,12 +14,14 @@
   <link href="assets/img/apple-touch-icon.png" rel="apple-touch-icon">
 
   <!-- Google Fonts -->
-  <link href="https://fonts.googleapis.com/css?family=Poppins:300,300i,400,400i,500,500i,600,600i,700,700i|Playfair+Display:400,400i,500,500i,600,600i,700,700i,900,900i" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css?family=Poppins:300,300i,400,400i,500,500i,600,600i,700,700i|Playfair+Display:400,400i,500,500i,600,600i,700,700i,900,900i|Anton" rel="stylesheet">
 
   <!-- Vendor CSS Files -->
   <link href="assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
   <link href="assets/vendor/hover/hover.min.css" rel="stylesheet">
   <link href="assets/vendor/ionicons/css/ionicons.min.css" rel="stylesheet">
+  <!-- Academicons: provides the Google Scholar icon -->
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/academicons/1.9.6/css/academicons.min.css" rel="stylesheet">
   <link href="assets/vendor/venobox/venobox.css" rel="stylesheet">
   <link href="assets/vendor/owl.carousel/assets/owl.carousel.min.css" rel="stylesheet">
 
@@ -62,16 +64,25 @@
   <!-- ======= Hero Section ======= -->
   <div id="hero" class="home">
 
+    <!-- Decorative animated gold network (drawn by assets/js/hero-network.js) -->
+    <canvas id="hero-network" aria-hidden="true"></canvas>
+
     <div class="container">
       <div class="hero-content">
         <h1>Benjamin Richardson</h1>
-        <p></p>
         <h2>I research <span class="typed"></span></h2>
         <p class="typed-items" data-typed-person="human-AI augmentation, user cognition, decision-making, humanistic technology use"> </p>
 
+        <a href="#about"
+           class="btn hvr-shutter-in-horizontal hero-btn"
+           target="_blank"
+           rel="noopener">
+          Learn About Me
+        </a>
+
         <ul class="list-unstyled list-social">
-          <li><a href="https://www.linkedin.com/in/benjamin-d-richardson"  target="_blank"><i class="ion-social-linkedin"></i></a></li>
-          <li><a href="https://scholar.google.com.tw/citations?user=elAh0jwAAAAJ&hl=en&inst=2365059173406736517" target="_blank"><i class="ion-social-googleplus"></i></a></li>
+          <li><a href="https://www.linkedin.com/in/benjamin-d-richardson" target="_blank" rel="noopener" aria-label="LinkedIn profile" title="LinkedIn"><i class="ion-social-linkedin"></i></a></li>
+          <li><a href="https://scholar.google.com.tw/citations?user=elAh0jwAAAAJ&hl=en&inst=2365059173406736517" target="_blank" rel="noopener" aria-label="Google Scholar profile" title="Google Scholar"><i class="ai ai-google-scholar"></i></a></li>
           <!-- <li><a href="#"><i class="ion-social-twitter"></i></a></li> -->
           <!-- <li><a href="https://www.instagram.com/benjam.rich/" target="_blank"><i class="ion-social-"></i></a></li> -->
           <!-- <li><a href="#"><i class="ion-social-googleplus"></i></a></li> -->
@@ -161,7 +172,7 @@
 
             <i class="ion-ios-flame-outline"></i>
             <span>Places</span>
-            <p class="separator">I grew up near Yosemite National Park (pictured above)</p>
+            <p class="separator">I grew up near Yosemite National Park</p>
 
           </div>
           <div class="services-block">
@@ -627,6 +638,9 @@
 
   <!-- Template Main JS File -->
   <script src="assets/js/main.js"></script>
+
+  <!-- Animated network behind the hero -->
+  <script src="assets/js/hero-network.js"></script>
 
 
 
