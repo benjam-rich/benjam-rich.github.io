@@ -6,6 +6,15 @@
 */
 
 /*--------------------------------------------------------------
+# Colors (change the accent here to re-theme the whole site)
+--------------------------------------------------------------*/
+:root {
+  --accent: #b8a07e;       /* gold */
+  --accent-dark: #8f7550;  /* deeper gold for hover / pressed */
+  --cloud-white: #FDFDFE;
+}
+
+/*--------------------------------------------------------------
 # General
 --------------------------------------------------------------*/
 .love {
@@ -67,7 +76,7 @@ a:hover {
 }
 
 a:hover, a:focus {
-  color: #b8a07e;
+  color: var(--accent);
   text-decoration: underline;
 }
 
@@ -93,21 +102,24 @@ p {
 }
 
 ::-moz-selection {
-  background: #b8a07e;
+  background: var(--accent);
   color: #fff;
 }
 
 ::selection {
-  background: #b8a07e;
+  background: var(--accent);
   color: #fff;
 }
 
 .btn {
-  background: #333;
+  background: var(--accent);
   border: medium none;
-  border-radius: 0;
+  border-radius: 4px;
+  overflow: hidden;
   color: #fff;
   font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.06em;
   height: 50px;
   line-height: 50px;
   padding: 0 30px;
@@ -163,11 +175,13 @@ p {
 }
 
 .hvr-shutter-in-horizontal::before {
-  background: #333;
+  background: var(--accent);
 }
 
-.hvr-shutter-in-horizontal:hover {
-  background: #b8a07e;
+.hvr-shutter-in-horizontal:hover,
+.btn:hover,
+.btn:focus {
+  background: var(--accent-dark);
 }
 
 .mb-30 {
@@ -243,29 +257,81 @@ nav ul li a {
 /*--------------------------------------------------------------
 # Hero
 --------------------------------------------------------------*/
+/* Hero: deep night-blue at the top, brightening and then fading into the
+   light-gray page below. The gold network is drawn on top of it by
+   assets/js/hero-network.js. */
 #hero {
-  background: url("../img/yosemite.png") repeat scroll center center/cover;
+  position: relative;
+  overflow: hidden;
+  background: linear-gradient(180deg, #081a3c 0%, #0c2a5e 32%, #13438e 56%, #1d5fb8 74%, #7aa7da 89%, #f7f7f7 100%);
   height: 100vh;
   width: 100%;
 }
 
+/* The network canvas fills the hero and fades out before the light bottom
+   edge, so gold lines never sit on the pale part of the gradient */
+#hero-network {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 0;
+  pointer-events: none;
+  -webkit-mask-image: linear-gradient(180deg, #000 0%, #000 60%, transparent 88%);
+  mask-image: linear-gradient(180deg, #000 0%, #000 60%, transparent 88%);
+}
 
+/* A soft deep-blue glow behind the text keeps the name crisp over the lines */
+#hero::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  background: radial-gradient(ellipse 38% 30% at 50% 42%, rgba(8, 26, 60, 0.55), rgba(8, 26, 60, 0) 100%);
+}
+
+/* Text sits above the network */
+#hero .container {
+  position: relative;
+  z-index: 1;
+}
 
 #hero .hero-content {
   height: 100vh;
-  text-align: left;
+  padding-bottom: 12vh; /* lifts the text up into the deeper blue */
+  text-align: center;
   width: 100%;
   display: flex;
   justify-content: center;
+  align-items: center;
   flex-direction: column;
 }
 
+.hero-content h1,
+.hero-content h2,
+.hero-content p,
+.hero-content .typed-cursor {
+  color: var(--cloud-white);
+  text-shadow: 0 1px 2px rgba(10, 40, 90, 0.18), 0 4px 18px rgba(10, 40, 90, 0.18);
+}
+
+/* Big condensed headline, like the reference site */
 .hero-content h1 {
-  font-size: 40px;
-  font-weight: 700;
-  margin-bottom: 10px;
+  font-family: 'Anton', 'Poppins', helvetica, sans-serif;
+  font-size: 104px;
+  font-weight: 400;
+  line-height: 0.95;
+  letter-spacing: 0.005em;
   text-transform: uppercase;
-  color:rgb(36, 35, 35);
+  margin-bottom: 20px;
+}
+
+.hero-content h2 {
+  font-size: 22px;
+  font-weight: 500;
+  line-height: 1.4;
+  margin: 0;
 }
 
 .hero-content p {
@@ -274,18 +340,73 @@ nav ul li a {
   margin-top: 0;
   margin-bottom: 30px;
   text-transform: capitalize;
-  color: rgb(36, 35, 35);
   font-weight: 500;
 }
 
+/* Gold call-to-action button (uses the site-wide .btn colors) */
+.hero-content .hero-btn {
+  height: 48px;
+  line-height: 48px;
+  padding: 0 34px;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+}
+
+.hero-content .list-social {
+  display: flex;
+  justify-content: center;
+  gap: 14px;
+  margin: 28px 0 0 0;
+  padding: 0;
+}
+
 .hero-content .list-social li {
-  float: left;
-  margin-right: 20px;
+  float: none;
+  margin: 0;
+}
+
+/* Social links as round outlined buttons that fill gold on hover */
+.hero-content .list-social li a {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 42px;
+  height: 42px;
+  border: 1px solid rgba(255, 255, 255, 0.85);
+  border-radius: 50%;
+}
+
+.hero-content .list-social li a:hover,
+.hero-content .list-social li a:focus {
+  background: var(--accent);
+  border-color: var(--accent);
 }
 
 .hero-content .list-social li i {
-  color: rgb(36, 35, 35);
-  font-size: 15px;
+  color: var(--cloud-white);
+  font-size: 17px;
+}
+
+/* The Google Scholar icon (Academicons) draws a little smaller than the
+   Ionicons LinkedIn icon, so it gets a touch more size to match */
+.hero-content .list-social li i.ai {
+  font-size: 19px;
+  line-height: 1;
+}
+
+@media (max-width: 991px) {
+  .hero-content h1 {
+    font-size: 76px;
+  }
+}
+
+@media (max-width: 480px) {
+  .hero-content h1 {
+    font-size: 56px;
+  }
+  .hero-content h2 {
+    font-size: 18px;
+  }
 }
 
 #nero .nero{
@@ -316,7 +437,7 @@ nav ul li a {
 
 #about .div-img-bg {
   padding-bottom: 30px;
-  border: 20px solid #b8a07e;
+  border: 20px solid var(--accent);
 }
 
 #about .div-img-bg .about-img img {
@@ -375,7 +496,7 @@ nav ul li a {
 
 .services-block i {
   font-size: 44px;
-  color: #b8a07e;
+  color: var(--accent);
   line-height: 44px;
 }
 
@@ -401,7 +522,7 @@ nav ul li a {
 }
 
 .services-carousel .owl-dot.active {
-  background-color: #b8a07e;
+  background-color: var(--accent);
 }
 
 .owl-nav {
@@ -420,7 +541,7 @@ nav ul li a {
 }
 
 #research-intro .section-title h4 {
-  color: #b8a07e;
+  color: var(--accent);
   letter-spacing: 0.15em;
   text-transform: uppercase;
   margin-top: 12px;
@@ -457,7 +578,7 @@ nav ul li a {
 
 #research-intro .research-threads .services-block:hover {
   transform: translateY(-5px);
-  box-shadow: 0px 6px 30px 0px #b8a07e;
+  box-shadow: 0px 6px 30px 0px rgba(184, 160, 126, 0.55);
 }
 
 #research-intro .research-threads .services-block i {
@@ -506,7 +627,7 @@ nav ul li a {
 }
 
 #portfolio .portfolio-list .nav li:hover, #portfolio .portfolio-list .nav li.filter-active {
-  color: #b8a07e;
+  color: var(--accent);
   transition: all 0.5s ease-in-out 0s;
 }
 
@@ -572,7 +693,7 @@ nav ul li a {
 }
 
 .journal-block .journal-info .journal-txt h4 a:hover {
-  color: #b8a07e;
+  color: var(--accent);
   transition: all 0.5s ease-in-out 0s;
 }
 
@@ -713,7 +834,7 @@ nav ul li a {
 }
 
 .journal-txt h4 a:hover {
-  color: #b8a07e;
+  color: var(--accent);
   transition: all 0.5s ease-in-out 0s;
 }
 
@@ -797,7 +918,7 @@ blockquote {
   background-color: #f2f2f2;
   margin: 30px 0;
   border: none;
-  border-left: 4px solid #b8a07e;
+  border-left: 4px solid var(--accent);
 }
 
 /*--------------------------------------------------------------
@@ -836,7 +957,7 @@ blockquote {
 }
 
 #footer .socials-media ul li a:hover {
-  color: #b8a07e;
+  color: var(--accent);
   transition: all 0.5s ease-in-out 0s;
 }
 
@@ -1220,7 +1341,7 @@ blockquote {
 }
 
 #teaching-intro .section-title h4 {
-  color: #b8a07e;
+  color: var(--accent);
   letter-spacing: 0.15em;
   text-transform: uppercase;
   margin-top: 12px;
@@ -1232,7 +1353,7 @@ blockquote {
   object-fit: cover;
   background: #ffff;
   display: block;
-  border: 15px solid #b8a07e;
+  border: 15px solid var(--accent);
   box-shadow: 0px 10px 40px 0px rgba(0, 0, 0, 0.12);
   transition: transform 0.4s ease-in-out, box-shadow 0.4s ease-in-out;
 }
@@ -1265,7 +1386,7 @@ blockquote {
 }
 
 #education-intro .section-title h4 {
-  color: #b8a07e;
+  color: var(--accent);
   letter-spacing: 0.15em;
   text-transform: uppercase;
   margin-top: 12px;
@@ -1297,7 +1418,7 @@ blockquote {
 }
 
 #education-intro .school-years {
-  color: #b8a07e;
+  color: var(--accent);
   font-style: italic;
   margin-left: 8px;
 }
@@ -1320,7 +1441,7 @@ blockquote {
 
 #education-intro .education-img img:hover {
   transform: translateY(-5px);
-  box-shadow: 0px 15px 50px 0px #b8a07e;
+  box-shadow: 0px 15px 50px 0px rgba(184, 160, 126, 0.55);
 }
 
 #padd {
